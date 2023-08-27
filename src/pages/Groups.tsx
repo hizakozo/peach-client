@@ -1,20 +1,22 @@
 import {GroupList} from "../features/groups/components/GroupList";
 import {SignOutButton} from "../features/users/components";
-import {Button, View} from "react-native";
+import {Button, StyleSheet, View} from "react-native";
 import {RootRoutesParamList} from "../RootRoutes";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {FC} from "react";
+import {FC, useEffect} from "react";
+import {PlusIcon} from "../features/categories/components/PlusIcon";
+import {rootStyles} from "./RootStyles";
+import {UserAvatar} from "../features/users/components/UserAvatar";
 
 type Props = NativeStackScreenProps<RootRoutesParamList, 'Groups'>;
-
 export const Groups: FC<Props> = ({navigation}) => {
     return (
-        <View>
+        <View style={rootStyles.Root}>
             <GroupList
                 onPressGroup={(groupId) => navigation.navigate("Categories", {groupId})}
-                openCreateForm={() => navigation.navigate("GroupForm")}
             />
-            <SignOutButton />
+            <PlusIcon containerStyle={rootStyles.AddIconContainer}
+                      onPress={() => navigation.navigate("GroupForm")}/>
         </View>
     )
 }

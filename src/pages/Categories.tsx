@@ -4,14 +4,17 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootRoutesParamList} from "../RootRoutes";
 import {FC} from "react";
 import {CategoryList} from "../features/categories/components/CategoryList";
+import {rootStyles} from "./RootStyles";
+import {PlusIcon} from "../features/categories/components/PlusIcon";
 type Props = NativeStackScreenProps<RootRoutesParamList, 'Categories'>;
 
 export const Categories: FC<Props> = ({navigation, route}) => {
     const {groupId} = route.params
     return (
-        <View>
-            <CategoryList groupId={groupId} openCreateForm={() => navigation.navigate("CategoryForm", {groupId})}/>
-            <SignOutButton />
+        <View style={rootStyles.Root}>
+            <CategoryList groupId={groupId} />
+            <PlusIcon containerStyle={rootStyles.AddIconContainer}
+                      onPress={() => navigation.navigate("CategoryForm", {groupId})}/>
         </View>
     )
 }

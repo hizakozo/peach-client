@@ -1,4 +1,4 @@
-import {Button, TextInput, View} from "react-native";
+import {TextInput, View, StyleSheet} from "react-native";
 import {
     Control,
     Controller,
@@ -8,6 +8,8 @@ import {
     UseFormProps
 } from "react-hook-form";
 import React, {useEffect} from "react";
+import {Input, Button} from "@rneui/themed";
+import {appColor} from "../shared/styles";
 
 export type TRecord = Record<string, unknown>
 export type TInputFieldProps<TFormValues extends FieldValues> = Omit<InputFieldProps<TFormValues>, "control">
@@ -41,18 +43,20 @@ export const Form = <
     }, [methods.formState.isSubmitted])
 
     return (
-        <View>
-            {
-                inputFields.map((field, i) => (
-                    <View key={i}>
-                        <InputField<TFormValues>
-                            control={methods.control}
-                            {...field}
-                        />
-                    </View>
-                ))
-            }
-            <Button title="Submit" onPress={methods.handleSubmit(onSubmit)}/>
+        <View style={styles.form}>
+            <View>
+                {
+                    inputFields.map((field, i) => (
+                        <View key={i}>
+                            <InputField<TFormValues>
+                                control={methods.control}
+                                {...field}
+                            />
+                        </View>
+                    ))
+                }
+            </View>
+            <Button title="保存" onPress={methods.handleSubmit(onSubmit)} color={appColor}/>
         </View>
     )
 }
@@ -70,7 +74,7 @@ export const InputField = <TFormValues extends TRecord = TRecord>(
         control={control}
         rules={rules}
         render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
+            <Input
                 placeholder={placeholder}
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -79,3 +83,11 @@ export const InputField = <TFormValues extends TRecord = TRecord>(
         name={name}
     />
 }
+
+const styles = StyleSheet.create({
+    form: {
+        flex: 1,
+        marginTop: 30,
+        justifyContent: "space-between"
+    }
+})

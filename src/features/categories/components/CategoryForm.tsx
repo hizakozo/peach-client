@@ -1,9 +1,10 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootRoutesParamList} from "../../../RootRoutes";
 import {FC} from "react";
-import {Form, TInputFieldProps} from "../../../components/Form";
+import {Form, TInputFieldProps} from "../../../components";
 import {useCreateCategory} from "../hooks/mutation/useCreateCategory";
 import {RouteProp, useRoute} from "@react-navigation/native";
+import {View} from "react-native";
 
 type Props = NativeStackScreenProps<RootRoutesParamList, 'CategoryForm'>;
 type CreateCategoryInputExcludeGroupId = Omit<CreateCategoryInput, "groupId">
@@ -14,9 +15,9 @@ export const CategoryForm: FC<Props> = (props: Props) => {
         {placeholder: "カテゴリ説明", name: "categoryRemarks", rules: {required: true}},
     ]
     return (
-        <>
+        <View style={{flex: 1}}>
             <Form<CreateCategoryInputExcludeGroupId> onSubmit={onSubmit} inputFields={inputFields}/>
-        </>
+        </View>
     )
 }
 

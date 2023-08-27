@@ -2,10 +2,10 @@ import {useCategories} from "../hooks/query/useCategories";
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 import {Card, Icon, ListItem} from "@rneui/themed";
 import {BaseCard} from "../../../components";
+import {PlusIcon} from "./PlusIcon";
 
 type CategoryListProps = {
     groupId: string;
-    openCreateForm: () => void
 }
 export const CategoryList = (props: CategoryListProps) => {
     const {data = [], isLoading} = useCategoryList(props)
@@ -19,13 +19,11 @@ export const CategoryList = (props: CategoryListProps) => {
                     ))
                 }
             </ScrollView>
-            <Icon containerStyle={style.CategoryList__AddIconContainer} raised size={30} type="ionicon" name={"add"}
-                  onPress={props.openCreateForm}/>
         </View>
     )
 }
 
-const useCategoryList = ({groupId, openCreateForm}: CategoryListProps) => {
+const useCategoryList = ({groupId}: CategoryListProps) => {
     const {data, isLoading} = useCategories(groupId)
     return {
         data,
@@ -35,12 +33,6 @@ const useCategoryList = ({groupId, openCreateForm}: CategoryListProps) => {
 
 const style = StyleSheet.create({
     CategoryList: {
-        position: "relative",
-        marginBottom: 100
+        flex: 1,
     },
-    CategoryList__AddIconContainer: {
-        position: "absolute",
-        bottom: 10,
-        right: 10,
-    }
 })
