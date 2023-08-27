@@ -1,10 +1,8 @@
 import {
-    createNativeStackNavigator,
-    NativeStackNavigationProp,
-    NativeStackScreenProps
+    createNativeStackNavigator
 } from "@react-navigation/native-stack";
 import {Groups} from "./pages/Groups";
-import {Categories} from "./pages";
+import {Categories, SignIn} from "./pages";
 import {GroupForm} from "./features/groups/components/GroupForm";
 import {CategoryForm} from "./features/categories/components/CategoryForm";
 import {UserAvatar} from "./features/users/components/UserAvatar";
@@ -12,6 +10,10 @@ import {UserInfo} from "./pages/UserInfo";
 import {FC} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Header} from "./components";
+import {Items} from "./pages/Items";
+import {AuthProvider, useAuth} from "./provider/AuthProvider";
+import auth from "@react-native-firebase/auth";
+import {ItemForm} from "./features/items/components/ItemForm";
 
 const Stack = createNativeStackNavigator<RootRoutesParamList>();
 
@@ -21,39 +23,58 @@ export type RootRoutesParamList = {
     GroupForm: undefined;
     CategoryForm: { groupId: string };
     UserInfo: undefined;
-    UserAvatar: undefined
+    Items: { categoryId: string };
+    SignIn: undefined;
+    ItemForm: {categoryId: string}
 };
 
 export const RootRoutes = () => {
+    const {user} = useAuth();
+    const isCurrentUserNull = user === null || user === undefined
     return (
-        <Stack.Navigator
-            initialRouteName={"Groups"}
-            screenOptions={{
-                header: (props) => {
-                    return <Header nativeStackHeaderProps={props}/>
-                },
-            }}
-        >
-            <Stack.Screen
-                component={Groups}
-                name="Groups"
-            />
-            <Stack.Screen
-                component={GroupForm}
-                name="GroupForm"
-            />
-            <Stack.Screen
-                component={Categories}
-                name="Categories"
-            />
-            <Stack.Screen
-                component={CategoryForm}
-                name="CategoryForm"
-            />
-            <Stack.Screen
-                component={UserInfo}
-                name="UserInfo"
-            />
-        </Stack.Navigator>
+            <Stack.Navigator
+                screenOptions={{
+                    header: (props) => {
+                        return <Header nativeStackHeaderProps={props}/>
+                    },
+                }}
+            >
+                {
+                    isCurrentUserNull ? <Stack.Screen
+                            component={SignIn}
+                            name="SignIn"
+                        /> :
+                        <Stack.Group>
+                            <Stack.Screen
+                                component={Groups}
+                                name="Groups"
+                            />
+                            <Stack.Screen
+                                component={GroupForm}
+                                name="GroupForm"
+                            />
+                            <Stack.Screen
+                                component={Categories}
+                                name="Categories"
+                            />
+                            <Stack.Screen
+                                component={CategoryForm}
+                                name="CategoryForm"
+                            />
+                            <Stack.Screen
+                                component={UserInfo}
+                                name="UserInfo"
+                            />
+                            <Stack.Screen
+                                component={Items}
+                                name="Items"
+                            />
+                            <Stack.Screen
+                                component={ItemForm}
+                                name="ItemForm"
+                            />
+                        </Stack.Group>
+                }
+            </Stack.Navigator>
     );
 };

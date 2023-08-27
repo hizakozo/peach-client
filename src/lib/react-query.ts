@@ -51,5 +51,7 @@ export const useMutationWrapper = <T, TVariables = void>(
 
 export const enum QUERY_KEYS {
     GROUPS = "GROUPS",
-    CATEGORIES = "CATEGORIES"
+    CATEGORIES = "CATEGORIES",
+    ITEMS = "ITEMS",
+    STATUSES = "STATUSES"
 }

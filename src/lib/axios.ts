@@ -9,7 +9,7 @@ export const instance = Axios.create({
 })
 
 instance.interceptors.request.use(async function (config) {
-    config.headers['authorization'] = await auth().currentUser?.getIdToken()
+    config.headers['authorization'] = await auth().currentUser?.getIdToken(true)
     return config;
 }, function (error) {
     return Promise.reject(error);

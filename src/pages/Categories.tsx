@@ -12,7 +12,7 @@ export const Categories: FC<Props> = ({navigation, route}) => {
     const {groupId} = route.params
     return (
         <View style={rootStyles.Root}>
-            <CategoryList groupId={groupId} />
+            <CategoryList groupId={groupId} onPressCategory={(categoryId) => navigation.navigate("Items", {categoryId})}/>
             <PlusIcon containerStyle={rootStyles.AddIconContainer}
                       onPress={() => navigation.navigate("CategoryForm", {groupId})}/>
         </View>

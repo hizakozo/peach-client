@@ -5,12 +5,15 @@ import React from "react";
 import {UserAvatar} from "../features/users/components/UserAvatar";
 import {NativeStackHeaderProps} from "@react-navigation/native-stack";
 import {appColor} from "../shared/styles";
+import {RootRoutesParamList} from "../RootRoutes";
 
 type HeaderComponentProps = {
     view?: string;
     nativeStackHeaderProps: NativeStackHeaderProps
 };
+type RootRoutesParamListKey = keyof RootRoutesParamList
 export const Header: React.FunctionComponent<HeaderComponentProps> = ({nativeStackHeaderProps}) => {
+    const routeName: RootRoutesParamListKey = nativeStackHeaderProps.route.name as unknown as RootRoutesParamListKey
     return (
         <HeaderRNE
             statusBarProps={{
@@ -18,17 +21,27 @@ export const Header: React.FunctionComponent<HeaderComponentProps> = ({nativeSta
             }}
             containerStyle={styles.headerContainer}
             leftComponent={
-            nativeStackHeaderProps.route.name !== "Groups" ?
+                routeName !== "Groups" && routeName !== "SignIn" ?
                 <Icon name={"chevron-back-outline"} type={"ionicon"} color={"#fff"} size={30} onPress={() => nativeStackHeaderProps.navigation.goBack()}/> : <></>
             }
             rightComponent={
-            nativeStackHeaderProps.route.name !== "UserInfo" ?
+                routeName !== "UserInfo" && routeName !== "SignIn" ?
                 <UserAvatar onPress={() => nativeStackHeaderProps.navigation.navigate("UserInfo")}/> : <></>
             }
-            centerComponent={{text: nativeStackHeaderProps.route.name, style: styles.heading}}
+            centerComponent={{text: titleMapping[routeName], style: styles.heading}}
         >
         </HeaderRNE>
     )
+}
+const titleMapping: Record<RootRoutesParamListKey, string>　= {
+    Categories: "カテゴリ一覧",
+    Groups: "グループ一覧",
+    GroupForm: "グループ作成",
+    CategoryForm: "カテゴリ作成",
+    UserInfo: "アカウント情報",
+    Items: "アイテム一覧",
+    SignIn: "サインイン",
+    ItemForm: "アイテム作成"
 }
 
 const styles = StyleSheet.create({

@@ -13,38 +13,17 @@ import {Groups} from "./src/pages/Groups";
 import {instance} from "./src/lib/axios";
 import {RootRoutes} from "./src/RootRoutes";
 import {WEB_CLIENT} from "@env"
+import {AuthProvider} from "./src/provider/AuthProvider";
 
 export default function App() {
-    const {user, initializing} = useAuth()
     const Stack = createNativeStackNavigator();
-    GoogleSignin.configure({
-        webClientId: WEB_CLIENT,
-        scopes: ['email'],
-    });
-
-    if (initializing) return <></>
-    if (!user) return <SignIn/>
     return (
-        <QueryClientProvider client={queryClient}>
-            <NavigationContainer>
-                <RootRoutes />
-            </NavigationContainer>
-        </QueryClientProvider>
+        <AuthProvider>
+            <QueryClientProvider client={queryClient}>
+                <NavigationContainer>
+                    <RootRoutes />
+                </NavigationContainer>
+            </QueryClientProvider>
+        </AuthProvider>
     );
-}
-const useAuth = () => {
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-    const onAuthStateChanged = async (user: FirebaseAuthTypes.User | null) => {
-        setUser(user);
-        if (initializing) setInitializing(false);
-    }
-    useEffect(() => {
-        return auth().onAuthStateChanged(onAuthStateChanged); // unsubscribe on unmount
-    }, []);
-
-    return {
-        user,
-        initializing
-    }
 }

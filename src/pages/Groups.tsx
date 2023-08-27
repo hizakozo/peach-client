@@ -1,12 +1,10 @@
 import {GroupList} from "../features/groups/components/GroupList";
-import {SignOutButton} from "../features/users/components";
 import {Button, StyleSheet, View} from "react-native";
 import {RootRoutesParamList} from "../RootRoutes";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {FC, useEffect} from "react";
 import {PlusIcon} from "../features/categories/components/PlusIcon";
 import {rootStyles} from "./RootStyles";
-import {UserAvatar} from "../features/users/components/UserAvatar";
 
 type Props = NativeStackScreenProps<RootRoutesParamList, 'Groups'>;
 export const Groups: FC<Props> = ({navigation}) => {
