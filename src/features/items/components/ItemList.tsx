@@ -48,10 +48,10 @@ export const ItemList = (props: ItemListProps) => {
             </ScrollView>
             <Overlay isVisible={changeStatus && changeStatusTargetId !== null} onBackdropPress={() => {
                 setChangeStatus(false)
-            }} overlayStyle={{height: 300, width: 300}}>
+            }} overlayStyle={{height: 500, width: 300}}>
                 <ChangeStatus close={() => {
                     setChangeStatus(false)
-                }} statuses={statuses} itemId={changeStatusTargetId}/>
+                }} statuses={statuses} itemId={changeStatusTargetId} categoryId={props.categoryId}/>
             </Overlay>
         </View>
     )
@@ -79,7 +79,7 @@ const useItemList = ({categoryId}: ItemListProps) => {
                 id: item.itemId,
                 name: item.itemName,
                 remarks: item.itemRemarks ?? "",
-                statusColorCode: status?.statusColor && `#${status.statusColor}`,
+                statusColorCode: status?.statusColor && `${status.statusColor}`,
                 statusId: status?.statusId
             }
         }) ?? []

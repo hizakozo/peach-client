@@ -5,11 +5,12 @@ import {
     DefaultValues,
     FieldValues, Path, RegisterOptions,
     useForm,
-    UseFormProps
+    UseFormProps, UseFormWatch
 } from "react-hook-form";
 import React, {useEffect} from "react";
 import {Input, Button} from "@rneui/themed";
 import {appColor} from "../shared/styles";
+import {CreateItemInput} from "../features/items/types";
 
 export type TRecord = Record<string, unknown>
 export type TInputFieldProps<TFormValues extends FieldValues> = Omit<InputFieldProps<TFormValues>, "control">
@@ -51,6 +52,7 @@ export const Form = <
                             <InputField<TFormValues>
                                 control={methods.control}
                                 {...field}
+                                watch={methods.watch}
                             />
                         </View>
                     ))
@@ -66,6 +68,7 @@ type InputFieldProps<TFormValues extends FieldValues> = {
     rules?: Omit<RegisterOptions<TFormValues, Path<TFormValues>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined
     placeholder: string
     name: Path<TFormValues>
+    watch: UseFormWatch<TFormValues>
 }
 export const InputField = <TFormValues extends TRecord = TRecord>(
     {control, rules, placeholder, name}: InputFieldProps<TFormValues>
