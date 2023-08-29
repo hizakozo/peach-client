@@ -14,12 +14,12 @@ export const useCreateCategory = (option?: MutateOption<Category, CreateCategory
         ...option,
         mutationFn: createCategory,
         onSuccess: (data, variables, context) => {
-            const prev = queryClient.getQueryData<Category[]>([QUERY_KEYS.CATEGORIES]) ?? []
+            const prev = queryClient.getQueryData<Category[]>([QUERY_KEYS.CATEGORIES, variables.groupId]) ?? []
             const newCategories: Category[] = [
                 data,
                 ...prev
             ]
-            queryClient.setQueryData([QUERY_KEYS.CATEGORIES], newCategories)
+            queryClient.setQueryData([QUERY_KEYS.CATEGORIES,  variables.groupId], newCategories)
         },
     })
 }

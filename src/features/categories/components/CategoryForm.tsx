@@ -24,7 +24,7 @@ export const CategoryForm: FC<Props> = (props) => {
 
 const useCategoryForm = (props: Props) => {
     const {mutateAsync} = useCreateCategory()
-    const {mutateAsync: updateCategory} = useUpdateCategory()
+    const {mutateAsync: updateCategory} = useUpdateCategory(props.route.params.groupId)
     const groupId = props.route.params.groupId
     const category = props.route.params.category
 

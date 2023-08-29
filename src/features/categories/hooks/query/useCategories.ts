@@ -5,7 +5,7 @@ type TQueryFnData = Category[]
 export const useCategories = (groupId: string, option?: QueryOption<TQueryFnData>) => {
     return useQueryWrapper({
         ...option,
-        queryKey: [QUERY_KEYS.CATEGORIES],
+        queryKey: [QUERY_KEYS.CATEGORIES, groupId],
         queryFn: () => getCategories(groupId)
     })
 }

@@ -41,7 +41,10 @@ const titleMapping: Record<RootRoutesParamListKey, string>　= {
     UserInfo: "アカウント情報",
     Items: "アイテム一覧",
     SignIn: "サインイン",
-    ItemForm: "アイテム作成"
+    ItemForm: "アイテム作成",
+    GroupInfo: "グループの設定",
+    CreateGroupInvite: "招待コード作成",
+    JoinGroup: "招待コードを入力"
 }
 
 const styles = StyleSheet.create({

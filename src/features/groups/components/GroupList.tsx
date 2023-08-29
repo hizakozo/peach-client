@@ -7,7 +7,7 @@ import {Group} from "../types";
 
 type GroupListProps = {
     onPressGroup: (groupId: string) => void;
-    onPressEditIcon: (group: Group) => void;
+    onPressEditIcon: (groupId: string) => void;
 }
 export const GroupList = (props: GroupListProps) => {
 
@@ -22,8 +22,8 @@ export const GroupList = (props: GroupListProps) => {
                         data.map((group, i) => (
                                 <BaseCard key={i} onPress={() => onPressGroup(group.groupId)} title={group.groupName}
                                           subTitle={group.groupRemarks}
-                                          icon={<Icon raised type={"ionicon"} name={"pencil-outline"} size={25}
-                                                      onPress={() => props.onPressEditIcon(group)}/>}
+                                          icon={<Icon raised type={"ionicon"} name={"settings-outline"} size={25}
+                                                      onPress={() => props.onPressEditIcon(group.groupId)}/>}
                                 />
                             )
                         )

@@ -15,6 +15,9 @@ import {AuthProvider, useAuth} from "./provider/AuthProvider";
 import auth from "@react-native-firebase/auth";
 import {ItemForm} from "./features/items/components/ItemForm";
 import {Group} from "./features/groups/types";
+import {GroupInfo} from "./pages/GroupInfo";
+import {CreateGroupInvite} from "./pages/CreateGroupInvite";
+import {JoinGroup} from "./pages/JoinGroup";
 
 const Stack = createNativeStackNavigator<RootRoutesParamList>();
 
@@ -27,6 +30,9 @@ export type RootRoutesParamList = {
     Items: { categoryId: string };
     SignIn: undefined;
     ItemForm: {categoryId: string}
+    GroupInfo: {groupId: string}
+    CreateGroupInvite: {groupId: string}
+    JoinGroup: undefined
 };
 
 export const RootRoutes = () => {
@@ -73,6 +79,18 @@ export const RootRoutes = () => {
                             <Stack.Screen
                                 component={ItemForm}
                                 name="ItemForm"
+                            />
+                            <Stack.Screen
+                                component={GroupInfo}
+                                name="GroupInfo"
+                            />
+                            <Stack.Screen
+                                component={CreateGroupInvite}
+                                name="CreateGroupInvite"
+                            />
+                            <Stack.Screen
+                                component={JoinGroup}
+                                name="JoinGroup"
                             />
                         </Stack.Group>
                 }
