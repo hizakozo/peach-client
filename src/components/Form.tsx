@@ -22,12 +22,13 @@ type FormProps<TFormValues extends FieldValues> = {
     inputFields:  TInputFieldProps<TFormValues>[];
     options?: UseFormProps<TFormValues>;
     defaultValues?: DefaultValues<TFormValues> | AsyncDefaultValues<TFormValues>
+    isEdit?: boolean
 }
 export const Form = <
     TFormValues extends TRecord = TRecord
 >(
     {
-        options, defaultValues, inputFields, onSubmit
+        options, defaultValues, inputFields, onSubmit, isEdit = false
     }: FormProps<TFormValues>
 ) => {
     const methods = useForm<TFormValues>(
@@ -52,7 +53,6 @@ export const Form = <
                             <InputField<TFormValues>
                                 control={methods.control}
                                 {...field}
-                                watch={methods.watch}
                             />
                         </View>
                     ))
@@ -68,11 +68,11 @@ type InputFieldProps<TFormValues extends FieldValues> = {
     rules?: Omit<RegisterOptions<TFormValues, Path<TFormValues>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined
     placeholder: string
     name: Path<TFormValues>
-    watch: UseFormWatch<TFormValues>
 }
 export const InputField = <TFormValues extends TRecord = TRecord>(
     {control, rules, placeholder, name}: InputFieldProps<TFormValues>
 ) => {
+    console.log(control._defaultValues)
     return <Controller
         control={control}
         rules={rules}
@@ -81,6 +81,7 @@ export const InputField = <TFormValues extends TRecord = TRecord>(
                 placeholder={placeholder}
                 onBlur={onBlur}
                 onChangeText={onChange}
+                value={value as string | undefined}
             />
         )}
         name={name}

@@ -4,6 +4,9 @@ import {BaseCard} from "../../../components";
 import {useEffect, useState} from "react";
 import {Card, Icon, ListItem, Overlay} from "@rneui/themed";
 import {ChangeStatus} from "./ChangeStatus";
+import {useDeleteItem} from "../hooks/mutaition";
+import {useNotificationDialog} from "../../../provider/NotificationDialogProvider";
+import {Item} from "../types";
 
 type ItemListProps = {
     categoryId: string
@@ -16,7 +19,8 @@ export const ItemList = (props: ItemListProps) => {
         openChangeStatusModal,
         changeStatusTargetId,
         statuses = [],
-        setChangeStatus
+        setChangeStatus,
+        deleteItem
     } = useItemList(props)
 
     if (dataLoading) return <Text>Loading ...</Text>
@@ -37,7 +41,7 @@ export const ItemList = (props: ItemListProps) => {
                                                 <ListItem.Subtitle
                                                     style={style.Item__SubTitle}>{item.remarks}</ListItem.Subtitle>
                                             </ListItem.Content>
-                                            <Icon type={"ionicon"} name={"chevron-down-circle-outline"} size={35}/>
+                                            <Icon type={"ionicon"} name={"trash-outline"} size={35} onPress={() => {deleteItem(item)}}/>
                                         </View>
                                     </ListItem>
                                 </Card>
@@ -70,6 +74,8 @@ const useItemList = ({categoryId}: ItemListProps) => {
     const [displayItems, setDisplayItems] = useState<DisplayItem[]>([])
     const [changeStatus, setChangeStatus] = useState(false)
     const [changeStatusTargetId, setChangeStatusTargetId] = useState<string | null>(null)
+    const {mutateAsync} = useDeleteItem()
+    const {openNotifier} = useNotificationDialog()
     const dataLoading = itemLoading || statusLoading
 
     useEffect(() => {
@@ -83,13 +89,16 @@ const useItemList = ({categoryId}: ItemListProps) => {
                 statusId: status?.statusId
             }
         }) ?? []
-        console.log(di)
         setDisplayItems(di)
     }, [items])
 
     const openChangeStatusModal = (itemId: string) => {
         setChangeStatusTargetId(itemId)
         setChangeStatus(true)
+    }
+    const deleteItem = (item: DisplayItem) => {
+        const action = () => mutateAsync(item.id)
+        openNotifier({title: `「${item.name}」を削除しますか？`, action})
     }
     return {
         displayItems,
@@ -98,7 +107,8 @@ const useItemList = ({categoryId}: ItemListProps) => {
         statuses,
         openChangeStatusModal,
         changeStatusTargetId,
-        setChangeStatus
+        setChangeStatus,
+        deleteItem
     }
 }
 

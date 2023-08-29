@@ -9,3 +9,5 @@ type CreateCategoryInput = {
     categoryName: string,
     categoryRemarks: string
 }
+
+type UpdateCategoryInput = Omit<CreateCategoryInput, "groupId">

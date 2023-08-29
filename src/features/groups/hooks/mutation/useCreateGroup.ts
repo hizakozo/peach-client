@@ -6,12 +6,12 @@ import {
     useMutationWrapper,
     useQueryWrapper
 } from "../../../../lib/react-query";
-import {CreateGroupInput, Group} from "../../types";
+import {MutateGroupInput, Group} from "../../types";
 import {createGroup, getGroups} from "../../api";
 
 
 
-export const useCreateGroup = (option?: MutateOption<Group, CreateGroupInput>) => {
+export const useCreateGroup = (option?: MutateOption<Group, MutateGroupInput>) => {
     return useMutationWrapper({
         ...option,
         mutationFn: createGroup,

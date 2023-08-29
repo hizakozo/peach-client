@@ -4,7 +4,7 @@ export type Group = {
     groupRemarks: string
 }
 
-export type CreateGroupInput = {
+export type MutateGroupInput = {
     groupName: string,
     groupRemarks?: string
 }

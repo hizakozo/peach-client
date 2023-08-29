@@ -7,6 +7,7 @@ import {PlusIcon} from "./PlusIcon";
 type CategoryListProps = {
     groupId: string;
     onPressCategory: (categoryId: string) => void;
+    onPressEditIcon: (category: Category) => void
 }
 export const CategoryList = (props: CategoryListProps) => {
     const {data = [], isLoading} = useCategoryList(props)
@@ -16,7 +17,13 @@ export const CategoryList = (props: CategoryListProps) => {
             <ScrollView>
                 {
                     data.map((category, i) => (
-                        <BaseCard key={i} onPress={() => {props.onPressCategory(category.categoryId)}} title={category.categoryName} subTitle={category.categoryRemarks} />
+                        <BaseCard key={i}
+                                  onPress={() => {props.onPressCategory(category.categoryId)}}
+                                  title={category.categoryName}
+                                  subTitle={category.categoryRemarks}
+                                  icon={<Icon raised type={"ionicon"} name={"pencil-outline"} size={25}
+                                              onPress={() => props.onPressEditIcon(category)}/>}
+                        />
                     ))
                 }
             </ScrollView>

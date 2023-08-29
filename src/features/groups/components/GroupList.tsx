@@ -3,9 +3,11 @@ import {View, Text, Button, StyleSheet, ScrollView} from "react-native";
 import {Card, Icon, ListItem} from '@rneui/themed';
 import {BaseCard} from "../../../components";
 import {PlusIcon} from "../../categories/components/PlusIcon";
+import {Group} from "../types";
 
 type GroupListProps = {
     onPressGroup: (groupId: string) => void;
+    onPressEditIcon: (group: Group) => void;
 }
 export const GroupList = (props: GroupListProps) => {
 
@@ -19,7 +21,10 @@ export const GroupList = (props: GroupListProps) => {
                     {
                         data.map((group, i) => (
                                 <BaseCard key={i} onPress={() => onPressGroup(group.groupId)} title={group.groupName}
-                                          subTitle={group.groupRemarks}/>
+                                          subTitle={group.groupRemarks}
+                                          icon={<Icon raised type={"ionicon"} name={"pencil-outline"} size={25}
+                                                      onPress={() => props.onPressEditIcon(group)}/>}
+                                />
                             )
                         )
                     }

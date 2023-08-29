@@ -1,14 +1,16 @@
 import {ColorValue, StyleProp, StyleSheet, View, ViewStyle} from "react-native";
-import {ListItem} from "@rneui/themed";
+import {Icon, ListItem} from "@rneui/themed";
 import {Card} from '@rneui/themed';
+import React from "react";
 
 type BaseCardProps = {
     title: string,
     subTitle: string,
     onPress: () => void,
     backgroundColor?: ColorValue | undefined;
+    icon?: React.ReactNode
 }
-export const BaseCard = ({title, subTitle, onPress, backgroundColor}: BaseCardProps) => {
+export const BaseCard = ({title, subTitle, onPress, backgroundColor, icon}: BaseCardProps) => {
     return (
         <>
             <Card containerStyle={{padding: 0}}>
@@ -22,6 +24,7 @@ export const BaseCard = ({title, subTitle, onPress, backgroundColor}: BaseCardPr
                         <ListItem.Subtitle
                             style={style.BaseCard__SubTitle}>{subTitle}</ListItem.Subtitle>
                     </ListItem.Content>
+                    {icon}
                 </ListItem>
             </Card>
         </>

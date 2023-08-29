@@ -15,6 +15,11 @@ export const createItem = async (input: CreateItemInput): Promise<Item> => {
     return res.data
 }
 
+export const deleteItem = async (itemId: string): Promise<{itemId: string}> => {
+    const res: AxiosResponse<{itemId: string}> = await instance.delete(`/items/${itemId}`)
+    return res.data
+}
+
 type GetStatusesResponse = {
     statuses: Status[]
 }

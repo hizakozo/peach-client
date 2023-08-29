@@ -14,14 +14,15 @@ import {Items} from "./pages/Items";
 import {AuthProvider, useAuth} from "./provider/AuthProvider";
 import auth from "@react-native-firebase/auth";
 import {ItemForm} from "./features/items/components/ItemForm";
+import {Group} from "./features/groups/types";
 
 const Stack = createNativeStackNavigator<RootRoutesParamList>();
 
 export type RootRoutesParamList = {
     Categories: { groupId: string };
     Groups: undefined;
-    GroupForm: undefined;
-    CategoryForm: { groupId: string };
+    GroupForm: {group: Group} | undefined;
+    CategoryForm: { category?: Category, groupId: string };
     UserInfo: undefined;
     Items: { categoryId: string };
     SignIn: undefined;

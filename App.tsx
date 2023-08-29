@@ -14,16 +14,19 @@ import {instance} from "./src/lib/axios";
 import {RootRoutes} from "./src/RootRoutes";
 import {WEB_CLIENT} from "@env"
 import {AuthProvider} from "./src/provider/AuthProvider";
+import {NotificationDialogProvider} from "./src/provider/NotificationDialogProvider";
 
 export default function App() {
     const Stack = createNativeStackNavigator();
     return (
-        <AuthProvider>
-            <QueryClientProvider client={queryClient}>
-                <NavigationContainer>
-                    <RootRoutes />
-                </NavigationContainer>
-            </QueryClientProvider>
-        </AuthProvider>
+        <NotificationDialogProvider>
+            <AuthProvider>
+                <QueryClientProvider client={queryClient}>
+                    <NavigationContainer>
+                        <RootRoutes />
+                    </NavigationContainer>
+                </QueryClientProvider>
+            </AuthProvider>
+        </NotificationDialogProvider>
     );
 }

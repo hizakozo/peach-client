@@ -12,6 +12,7 @@ export const Groups: FC<Props> = ({navigation}) => {
         <View style={rootStyles.Root}>
             <GroupList
                 onPressGroup={(groupId) => navigation.navigate("Categories", {groupId})}
+                onPressEditIcon={(group) => {navigation.navigate("GroupForm", {group})}}
             />
             <PlusIcon containerStyle={rootStyles.AddIconContainer}
                       onPress={() => navigation.navigate("GroupForm")}/>
